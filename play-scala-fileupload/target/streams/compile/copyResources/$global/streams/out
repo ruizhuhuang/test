@@ -1,0 +1,5 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/conf/application.conf,/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/target/scala-2.12/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/conf/logback.xml,/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/target/scala-2.12/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/conf/messages,/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/target/scala-2.12/classes/messages)[0m
+[0m[[0mdebug[0m] [0m	(/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/conf/routes,/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/play-scala-fileupload/target/scala-2.12/classes/routes)[0m
