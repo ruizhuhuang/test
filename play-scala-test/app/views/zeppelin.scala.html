@@ -1,0 +1,23 @@
+@* zeppelin Template File *@
+@()
+
+
+@main("Welcome to Play") {
+
+   
+  <h1>Start Zeppelin!</h1>
+  
+
+  <p>Click the button to start Zeppelin.</p>
+  
+
+   
+   @helper.form(action = routes.ZeppelinController.startZeppelin, 'enctype -> "multipart/form-data") {
+   <p>
+   <input type="submit" value="Start Zeppelin">
+   </p>
+   
+  
+  }
+  
+}
