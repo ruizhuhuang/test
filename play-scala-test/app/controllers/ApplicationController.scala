@@ -25,14 +25,16 @@ class ApplicationController @Inject()(cc: MessagesControllerComponents) extends 
   
 
   private val widgets = scala.collection.mutable.ArrayBuffer[Widget]()
+  private val res = scala.collection.mutable.ArrayBuffer[String]()
+  
+  private var msg = ""
+  
 
   // The URL to the widget.  You can call this directly from the template, but it
   // can be more convenient to leave the template commpletely stateless i.e. all
   // of the "WidgetController" references are inside the .scala file.
-  private val postUrl = routes.ApplicationController.createWidget()
+  private val postUrl = routes.ApplicationController.createWidget()  
   
-  
-  private val res=scala.collection.mutable.ArrayBuffer("")
 
   def index = Action {
     Ok(views.html.index())
@@ -42,7 +44,7 @@ class ApplicationController @Inject()(cc: MessagesControllerComponents) extends 
     // Pass an unpopulated form to the template
     
     
-    Ok(views.html.application(widgets, form, postUrl, res))
+    Ok(views.html.application(widgets, form, postUrl, res, msg))
   }
 
   // This will be the action that handles our form post
@@ -51,23 +53,39 @@ class ApplicationController @Inject()(cc: MessagesControllerComponents) extends 
       // This is the bad case, where the form had validation errors.
       // Let's show the user the form again, with the errors highlighted.
       // Note how we pass the form with errors to the template.
-      BadRequest(views.html.application(widgets, formWithErrors, postUrl, res))
+      BadRequest(views.html.application(widgets, formWithErrors, postUrl, res, msg))
     }
 
     val successFunction = { data: Data =>
       // This is the good case, where the form was successfully parsed as a Data.
-      val widget = Widget(input_dir = data.input, output_dir = data.output)
       
+      val button_value = request.body.asFormUrlEncoded.get("action")(0)
       
-      (data.input  + " " + data.output).!
+      println(button_value)
       
-      val filename = data.output
-      val fileContents = Source.fromFile(filename).getLines.mkString
-      println(fileContents)
-      res.append(fileContents)
+      if ("run".equals(button_value)) {     
       
-      widgets.append(widget)
-      Redirect(routes.ApplicationController.listWidgets()).flashing("info" -> "Result added!")
+        val widget = Widget(input_dir = data.input, output_dir = data.output)     
+        
+        (data.input  + " " + data.output).!
+        
+        val filename = data.output
+        val fileContents = Source.fromFile(filename).getLines.mkString
+        // println(fileContents)
+        res.append(fileContents)
+        
+        
+        
+        widgets.append(widget)
+        Redirect(routes.ApplicationController.listWidgets()).flashing("info" -> "Result added!")
+      } else if("clean".equals(button_value)) {
+        widgets.clear
+        res.clear
+        msg = data.firstname
+        Redirect(routes.ApplicationController.listWidgets()).flashing("info" -> "Result cleaned!")
+      } else{
+        BadRequest("This action is not allowed");
+      }
     }
 
     val formValidationResult = form.bindFromRequest

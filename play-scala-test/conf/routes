@@ -16,6 +16,7 @@ POST    /startZeppelin                           controllers.ZeppelinController.
 # Widgets
 GET     /applicationExecutor                    controllers.ApplicationController.listWidgets
 
++ nocsrf
 POST    /applicationExecutor                    controllers.ApplicationController.createWidget
 
 

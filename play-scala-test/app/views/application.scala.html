@@ -1,4 +1,4 @@
-@(widgets: Seq[Widget], form: Form[WidgetForm.Data], postUrl: Call, res: Seq[String])(implicit request: MessagesRequestHeader)
+@(widgets: Seq[Widget], form: Form[WidgetForm.Data], postUrl: Call, res: Seq[String], msg: String)(implicit request: MessagesRequestHeader)
 
   @main("Widgets") {
 
@@ -16,60 +16,91 @@
     }
 
     @helper.form(postUrl) {
-      @helper.CSRF.formField
+     @helper.CSRF.formField
 
       @helper.input(form("input")){ (id, name,size,value) =>
       	@if(widgets.isEmpty){
-      		<input type="text" id="input" name="input" size="70" value="/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/run_pi.sh"/>
+      		<input type="text" id="input" name="input" size="60" value="/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/run_pi.sh"/>
       	}else{
-      	    <input type="text" id="input" name="input" size="70" value="@widgets.last.input_dir"/>
+      	    <input type="text" id="input" name="input" size="60" value="@widgets.last.input_dir"/>
       	}	
       }
 
       @helper.input(form("output")){ (id, name,size,value) =>
         @if(widgets.isEmpty){
-      	<input type="text" id="ouput" name="output" size="70" value="/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/pi.out"/>
+      	<input type="text" id="ouput" name="output" size="60" value="/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/pi.out"/>
       	}else{
-      	<input type="text" id="ouput" name="output" size="70" value="@widgets.last.output_dir"/>
+      	<input type="text" id="ouput" name="output" size="60" value="@widgets.last.output_dir"/>
       	}
       }
       
-      <button>Run Application</button>
+      <button type="submit" name="action" value="run">Run Application</button>
+      
+    @if(!msg.isEmpty){
+       <div>@msg</div>
     }
     
-    <hr/>
+    @if(!widgets.isEmpty){
     
-    <table>
-      <thead>
-        <tr><th>Input Directory</th><th>Output Directory</th>
-      </thead>
-      <tbody>
-      @if(!widgets.isEmpty){
-	      @for(w <- widgets) {
-	        <tr><td>@w.input_dir</td><td>@w.output_dir</td></tr>
+    	@* Flash shows updates to a page *@
+	    @request.flash.data.map{ case (name, value) =>
+	      <div>@name: @value</div>
+	    }
+	    <hr/>
+	    
+	    <table>
+	      <thead>
+	        <tr><th>Input Directory</th><th>Output Directory</th>
+	      </thead>
+	      <tbody>
+	      
+		      @for(w <- widgets) {
+		        <tr><td>@w.input_dir</td><td>@w.output_dir</td></tr>
+		      }
+	      
+	
+	      </tbody>
+	    </table>
+	}
+    
+    @if(!res.isEmpty){
+	    <hr/> 
+	     <table>
+	      <thead>
+	        <tr><th>Results</th>
+	      </thead>
+	      <tbody>
+	      @for(r <- res) {
+	        <tr><td>@r</td></tr>
 	      }
-      }
-
-      </tbody>
-    </table>
-
-    <hr/>
-    
-    @* Flash shows updates to a page *@
-    @request.flash.data.map{ case (name, value) =>
-      <div>@name: @value</div>
-    }
-    
-    
-     <table>
-      <thead>
-        <tr><th>Results</th>
-      </thead>
-      <tbody>
-      @for(r <- res) {
-        <tr><td>@r</td></tr>
-      }
-      </tbody>
-    </table>
+	      </tbody>
+	    </table>
+	    
+	      
+	    <hr/>  
+	    
+	       
+	       
+	  	<table>
+	      <thead>
+	        <tr><th>Total Number of Runs</th>
+	      </thead>
+	      <tbody>
+	        @if(widgets.isEmpty){
+	        	<tr><td>0</td></tr>
+	        } else{
+	        	<tr><td>@widgets.length</td></tr>
+	        } 
+	      </tbody>
+	    </table>
+	 <button type="submit" name="action" value="clean">Clean</button>
+	    
+  	 }
+  	  
+  	 <p>
+  	 <input type="text" name="firstname" value="Mickey">
+  	 </p> 	
+      
+    }    
 
   }

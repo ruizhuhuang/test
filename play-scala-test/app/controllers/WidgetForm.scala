@@ -10,7 +10,7 @@ object WidgetForm {
    * Using a class specifically for form binding reduces the chances
    * of a parameter tampering attack and makes code clearer.
    */
-  case class Data(input: String, output: String)
+  case class Data(input: String, output: String, firstname: String)
 
   /**
    * The form definition for the "create a widget" form.
@@ -20,7 +20,8 @@ object WidgetForm {
   val form = Form(
     mapping(
       "input" -> nonEmptyText,
-      "output" -> nonEmptyText
+      "output" -> nonEmptyText,
+      "firstname" -> text
     )(Data.apply)(Data.unapply)
   )
 }
