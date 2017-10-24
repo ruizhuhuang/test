@@ -16,5 +16,58 @@
     </ul>
 
 </div>
+
+
+
+
+
+
+   
+
+<h1>The XMLHttpRequest Object</h1>
+<button type="button" onclick="loadDoc()">Change Content 1</button>
+</div>
+
+<p>
+<div id="demo"> AAA </div>
+</p>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "/test1", true);
+  xhttp.send();
+}
+</script>
+
+<button type="button" onclick="loadDoc1()">Change Content 2</button>
+</div>
+
+<p>
+<div id="demo1"> BBB </div>
+</p>
+
+<script>
+function loadDoc1() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "/test2", true);
+  xhttp.send();
+}
+</script>
+
+
+
   
 }

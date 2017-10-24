@@ -23,7 +23,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * 
    */
   
-  //private val test=scala.collection.mutable.ArrayBuffer("")
+  private val name="KKKKKKK"
   
   def index() = Action { implicit request: Request[AnyContent] =>
     //val name:String =  "ruizhu"
@@ -31,6 +31,17 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.index())
   }
   
-
+   def test1 = Action { implicit request: Request[AnyContent] =>
+    //val name:String =  "ruizhu"
+    //println(test)
+    Ok("1111111")
+  }
+   
+  def test2 = Action { implicit request: Request[AnyContent] =>
+    //val name:String =  "ruizhu"
+    //println(test)
+    Ok("2222222")    
+  }
+  
 
 }

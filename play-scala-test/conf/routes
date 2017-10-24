@@ -6,6 +6,10 @@
 # An example controller showing a sample home page
 GET     /                                        controllers.HomeController.index
 
+GET    /test1                                     controllers.HomeController.test1
+
+GET    /test2                                     controllers.HomeController.test2
+
 GET     /startZeppelin                           controllers.ZeppelinController.index
 
 + nocsrf
