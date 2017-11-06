@@ -1,0 +1,15 @@
+@(res: scala.collection.mutable.TreeMap[String,String])
+
+  @main("App Status ") {
+
+    <h1>Application Status</h1>
+    @for(key <- res.keys){
+    	<div><h3>@key</h3></div>
+    	
+        <table>        
+        	@Html(res(key))
+        </table>
+        <hr/>
+        
+    } 
+  }

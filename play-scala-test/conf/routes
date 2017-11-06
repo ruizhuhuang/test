@@ -10,6 +10,9 @@ GET    /test1                                     controllers.HomeController.tes
 
 GET    /test2                                     controllers.HomeController.test2
 
+
+GET    /test3                                     controllers.HomeController.test3
+
 GET     /startZeppelin                           controllers.ZeppelinController.index
 
 + nocsrf
@@ -24,6 +27,10 @@ GET     /applicationExecutor                    controllers.ApplicationControlle
 POST    /applicationExecutor                    controllers.ApplicationController.createWidget
 
 
+GET     /appStatus                              controllers.AppStatusController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+GET     /proxy/*url                      controllers.Proxy.index(url)

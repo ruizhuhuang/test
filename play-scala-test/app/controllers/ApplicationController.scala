@@ -36,9 +36,9 @@ class ApplicationController @Inject()(cc: MessagesControllerComponents) extends 
   private val postUrl = routes.ApplicationController.createWidget()  
   
 
-  def index = Action {
-    Ok(views.html.index())
-  }
+  //def index = Action {
+  //  Ok(views.html.index())
+  //}
 
   def listWidgets = Action { implicit request: MessagesRequest[AnyContent] =>
     // Pass an unpopulated form to the template

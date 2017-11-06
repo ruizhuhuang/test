@@ -23,12 +23,12 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
    * 
    */
   
-  private val name="KKKKKKK"
+  private var name="aaa"
   
   def index() = Action { implicit request: Request[AnyContent] =>
     //val name:String =  "ruizhu"
     //println(test)
-    Ok(views.html.index())
+    Ok(views.html.index(name))
   }
   
    def test1 = Action { implicit request: Request[AnyContent] =>
@@ -41,6 +41,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     //val name:String =  "ruizhu"
     //println(test)
     Ok("2222222")    
+  }
+  
+    def test3 = Action { implicit request: Request[AnyContent] =>
+    //val name:String =  "ruizhu"
+    //println(test)
+    name = "treeString" 
+    println(name)
+    Ok(name)    
   }
   
 
