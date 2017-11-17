@@ -1,0 +1,38 @@
+@(form: Form[ClusterForm.Data], tasks: Array[models.Task])(implicit request: MessagesRequestHeader)
+
+@main("Set Up Workflow") {
+	<h1>Set Up Workflow</h1>
+  	
+    
+	    @for(index <- 0 until tasks.length) {
+	    
+	       <div class="steps">
+	       		<div class="step1">
+					Step @(index + 1): @tasks(index).taskName
+		   		</div>
+		   		@clusterStatus(form, tasks(index), index)
+		   </div>
+	    }
+
+	    <ul>
+		    <li>
+		    	<div class="step1">
+					Upload All Files!
+				    <p>
+				    	<button type="submit" onclick=clickAll()>Upload All</button>
+				    </p>
+			    </div>
+		    </li>
+	    </ul>
+	    
+	    <script>
+	    function clickAll() {
+	    	@for(index <- 0 until tasks.length) {
+	    		$("#submit"+@index).click();
+	    	}
+	    	alert("All files uploaded")
+
+	    }
+	     
+	    </script>
+}

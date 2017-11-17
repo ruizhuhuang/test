@@ -20,7 +20,7 @@ import scala.io.Source
  * See https://www.playframework.com/documentation/2.6.x/ScalaForms#passing-messagesprovider-to-form-helpers
  * for details.
  */
-class ApplicationController @Inject()(cc: MessagesControllerComponents) extends MessagesAbstractController(cc) {
+class ClusterController @Inject()(cc: MessagesControllerComponents) extends MessagesAbstractController(cc) {
   import WidgetForm._
   
 
@@ -61,7 +61,6 @@ class ApplicationController @Inject()(cc: MessagesControllerComponents) extends 
       
       val button_value = request.body.asFormUrlEncoded.get("action")(0)
       
-      println(request.body.asFormUrlEncoded)
       println(button_value)
       
       if ("run".equals(button_value)) {     

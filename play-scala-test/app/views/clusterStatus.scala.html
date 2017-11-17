@@ -1,0 +1,28 @@
+@(res:AnyRef, task: models.Task, index: Integer)
+
+
+@main("Widgets") {
+
+    <h1>Reservation nodes</h1>
+    
+    @helper.form(action = routes.WorkflowController.runTask)  {
+    
+     <div> Reservation name: <input type="text" name="reservation" value="hadoop+Idols+2428" required> </div>
+     
+     <input type="submit" value="Submit">  
+     
+     }  
+     
+     @if(res!=null){
+        <div>@task.taskName</div>
+        <div>@res.asInstanceOf[Array[String]](0)</div>
+        <div>@index</div>
+     
+     }
+   
+    
+}
+
+
+
+ 

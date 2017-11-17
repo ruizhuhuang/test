@@ -29,6 +29,12 @@ POST    /applicationExecutor                    controllers.ApplicationControlle
 
 GET     /appStatus                              controllers.AppStatusController.index
 
+
+GET     /clusterStatus                              controllers.WorkflowController.showWorkflow
+
++ nocsrf
+POST   /clusterStatus                               controllers.WorkflowController.runTask
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
