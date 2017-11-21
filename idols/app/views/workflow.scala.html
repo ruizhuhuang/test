@@ -1,0 +1,43 @@
+@(root: String, tasks: Array[models.Task], res:AnyRef)
+
+@main("Set Up Workflow") {
+    
+    <h2>Set Up Workflow</h2>
+    
+	    @for(index <- 0 until tasks.length) {
+	    
+	       <div class="steps">
+	       		<div class="step1">
+					Step @(index + 1): @tasks(index).taskName
+		   		</div>
+		   		@if(tasks(index).taskType=="fileUpload") {
+		   			@upload(root, tasks(index), index)
+		   		}else if(tasks(index).taskType=="checkHadoop"){
+		   			@clusterStatus(res, tasks(index), index)
+		   		}
+		   		
+		   </div>
+	    }
+
+	    <ul style="list-style:none">
+		    <li>
+		    	<div class="step1 last">
+					Upload All Files!
+				    <p>
+				    	<button type="submit" onclick=clickAll()>Upload All</button>
+				    </p>
+			    </div>
+		    </li>
+	    </ul>
+	    
+	    <script src="@routes.Assets.versioned("javascripts/upload.js")"></script>
+	    
+	    <script>
+		    function clickAll() {
+		    	@for(index <- 0 until tasks.length) {
+		    		$("#submit"+@index).click();
+		    	}
+		    }
+	    </script>
+	    
+}
