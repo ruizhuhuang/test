@@ -4,9 +4,10 @@ import play.api._
 import play.api.mvc._
 
 import models.Task
-import models.UploadTask
-import models.DirectoryStructure
-import models.checkClusterTask
+//import models.UploadTask
+//import models.DirectoryStructure
+//import models.checkClusterTask
+import models._
 import play.api.libs.json._
 
 import java.util.ArrayList
@@ -20,10 +21,7 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
   var tasks = scala.collection.mutable.ArrayBuffer[Task]()
   // an ArrayList of Directory Structures
   var directories = new ArrayList[DirectoryStructure]()
-  
-  
-  // res: cluster node list
-  var res:Array[String] = _
+
 
   /**
    * An Action to render the Workflow page.
@@ -37,7 +35,7 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
       buildTasks()
 
 
-    Ok(views.html.workflow(root, tasks.toArray, res))
+    Ok(views.html.workflow(root, tasks.toArray))
   }
   
   
@@ -51,10 +49,14 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
     //val task2 = new UploadTask("Data Analysis", "fileUpload")
     //val task3 = new UploadTask("Postprocessing", "fileUpload")
     val task4 = new checkClusterTask("Cluster Status","checkHadoop")
+    val task5 = new runWordCountTask("Word Count Example","runWordCount")
+    val task6 = new showResultTask("Show result","showResult")
     tasks.append(task1)
     //tasks.append(task2)
     //tasks.append(task3)
     tasks.append(task4)
+    tasks.append(task5)
+    tasks.append(task6)
   }
 
   /**
@@ -95,20 +97,23 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
     val task = tasks(index)
     var feedback: String = ""
     // check tast type
-    if (task.taskType.equals("fileUpload")){ 
-       feedback = tasks.get(index).run(body)(0); 
+//    if (task.taskType.equals("fileUpload")){ 
+    feedback = task.run(body); 
         // check if the result of running the task
-      if (feedback.substring(0, 7).equals("Success"))
-        Ok(feedback)
-      else
-        BadRequest(feedback);
+    task.taskType match {
+      case "fileUpload"   => {feedback.substring(0, 7) match {case "Success" => Ok(feedback); case _ => BadRequest(feedback)} }
+      case "checkHadoop"  => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
+      case "runWordCount" => {feedback match {case "Job finished" => Ok(feedback); case _ => BadRequest(feedback)} }
+      case "showResult"   => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
     }
-    else if (task.taskType.equals("checkHadoop")){
-       res = task.run(body)
-       Redirect(routes.WorkflowController.showWorkflow)      
-    } else {
-      Ok("ok")
-    }
+
+//    }
+//    else if (task.taskType.equals("checkHadoop")){
+//       feedback = tasks.get(index).run(body); 
+//       Ok(feedback)      
+//    } else {
+//      Ok("ok")
+//    }
     
     
    

@@ -1,4 +1,4 @@
-@(root: String, tasks: Array[models.Task], res:AnyRef)
+@(root: String, tasks: Array[models.Task])
 
 @main("Set Up Workflow") {
     
@@ -10,11 +10,12 @@
 	       		<div class="step1">
 					Step @(index + 1): @tasks(index).taskName
 		   		</div>
-		   		@if(tasks(index).taskType=="fileUpload") {
-		   			@upload(root, tasks(index), index)
-		   		}else if(tasks(index).taskType=="checkHadoop"){
-		   			@clusterStatus(res, tasks(index), index)
-		   		}
+				@tasks(index).taskType  match {
+					case "fileUpload"   => { @upload(root, tasks(index), index) }
+				 	case "checkHadoop"  => { @clusterStatus(tasks(index), index) }
+				 	case "runWordCount" => { @wordcount(tasks(index), index) }
+				 	case "showResult"   => { @showResult(tasks(index), index) }
+				 }
 		   		
 		   </div>
 	    }

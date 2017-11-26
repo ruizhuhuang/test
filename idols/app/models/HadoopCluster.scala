@@ -10,6 +10,7 @@ package models
 import play.api.libs.Files
 import play.api.mvc._
 import scala.sys.process._
+import Array._
 
 
  class HadoopCluster(numNode: Int, numDays:Int, cType: String) extends Cluster(numNode,numDays,cType){
@@ -49,16 +50,29 @@ import scala.sys.process._
     
   }
   
-  def getNodeList(reservationName: String) : Array[String]= {
-    getHadoopNodeList(reservationName)    
+  def getNodeList(reservationName: String) : Array[String] = {
+    getHadoopClusterNodeList(reservationName)    
   }
   
-  def getHadoopNodeList(reservationName:String = "hadoop+Idols+2428") : Array[String] = {
-    //get node list
+  def getReservationInfo(reservationName:String = "hadoop+Idols+2431"):Array[String] = {
     val resName = reservationName
-    //val command = "tmp=`sinfo -T|grep "+ resName + " |awk '{print $6}'` && scontrol show hostname $tmp"
-    val command = "echo $HOME"
-    Process(Seq("bash","-c", command)).!!.split("\n")     
+    val command = "scontrol show reservation |grep " + resName
+    
+    val res_info = Process(Seq("bash","-c", command)).!!.split("\n")
+    //val res_info = Array("ReservationName=hadoop+Idols+2431 StartTime=2017-11-22T11:35:02 EndTime=2017-12-02T11:35:02 Duration=10-00:00:00")
+    
+    res_info    
   }
+  
+  def getHadoopClusterNodeList(reservationName:String = "hadoop+Idols+2431"):Array[String] = {
+    val resName = reservationName
+    val command_1 = "tmp=`sinfo -T|grep "+ resName + " |awk '{print $6}'` && scontrol show hostname $tmp"
+    
+    val nodelist = Process(Seq("bash","-c", command_1)).!!.split("\n")
+    //val nodelist = Array("c252-101","c252-102","c252-103", "c252-104")
+    
+    nodelist    
+  }
+  
 
 }

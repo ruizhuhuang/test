@@ -41,5 +41,7 @@ abstract class Cluster(numNode: Int, numDays:Int, cType: String) {
   }
   
   def getNodeList(res: String): Array[String]
+  
+  
 
 }

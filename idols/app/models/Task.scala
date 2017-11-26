@@ -17,7 +17,7 @@ abstract class Task(name: String, tType: String) {
    * @param body: message requested from user
    * @return feedback to user
    */
-  def run(body: AnyContent): Array[String]
+  def run(body: AnyContent): String
 
 
   implicit def reflector(ref: AnyRef) = new {
