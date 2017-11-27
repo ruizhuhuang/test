@@ -26,13 +26,15 @@ class runWordCountTask(name: String, tType: String) extends Task(name, tType){
     val input_file_path = userInput.get("input_file_path")(0)
     val output_path = userInput.get("output_path")(0)
 
-    val command = script_path + " " + input_file_path + " " + output_path
-    val res = Process(Seq("bash","-c", command)).!
+    val command = "source " + script_path + " " + input_file_path + " " + output_path + " &> /dev/null  & echo $!"
+    val res = Process(Seq("bash","-c", command)).!!.split("\n")(0)
     
-    res match {
-      case 0 => "Job finished"
-      case _ => "Something went wrong"
-    }
+    res
+    
+//    res match {
+//      case 0 => "Job finished"
+//      case _ => "Something went wrong"
+//    }
   }
     
 }

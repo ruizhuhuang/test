@@ -6,35 +6,22 @@
     	
     	
 	    <ul style="list-style:none">
-
-		    
-		    <li>
+	    	<li>
 		    	<div class="indivsteps">
-					Result HDFS directory
-				</div>
-				<p>/user/$USER/
-				    <input type="text" id="output_path@index" name="output_path" size="80" value="wc_out_0001" required>
-		    		    @*laptop*@
-				    @*<input type="text" id="output_path@index" name="output_path" size="80" value="/Users/rhuang/Documents/Dropbox_1/TACC/PLAY/pi.out.test1" required>*@ 
-		    	</p>
-		    </li>
-		    
-		    <li>
-		    	<div class="indivsteps">
-					Top
+					Reservation name
 				</div>
 				<p>
-		    		<input type="number" id="top_n@index" name="top_n" min="1" max="20" value="5" required> row
+		    		<input type="text" id="reservation@index" name="reservation" value="hadoop+Idols+2431" required> 
 		    	</p>
 		    </li>
 	    
-
+		    <li>
 	    	<li>
 			    <div class="indivsteps">
-					Show Result
+					Start Zeppelin
 				</div>
 			    <p>
-			    	<button type="submit" id="submit@index">Show</button>
+			    	<button type="submit" id="submit@index">Submit</button>
 			    </p>
 		    </li>
 

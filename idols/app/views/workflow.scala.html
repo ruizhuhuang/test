@@ -11,10 +11,12 @@
 					Step @(index + 1): @tasks(index).taskName
 		   		</div>
 				@tasks(index).taskType  match {
-					case "fileUpload"   => { @upload(root, tasks(index), index) }
-				 	case "checkHadoop"  => { @clusterStatus(tasks(index), index) }
-				 	case "runWordCount" => { @wordcount(tasks(index), index) }
-				 	case "showResult"   => { @showResult(tasks(index), index) }
+					case "fileUpload"       => { @upload(root, tasks(index), index) }
+				 	case "checkHadoop"      => { @clusterStatus(tasks(index), index) }
+				 	case "runWordCount"     => { @wordcount(tasks(index), index) }
+				 	case "checkJobStatus"   => { @jobStatus(tasks(index), index) }				 	
+				 	case "showResult"       => { @showResult(tasks(index), index) }
+				 	case "startZeppelin"    => { @zeppelin(tasks(index), index) }
 				 }
 		   		
 		   </div>

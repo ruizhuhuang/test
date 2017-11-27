@@ -50,13 +50,19 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
     //val task3 = new UploadTask("Postprocessing", "fileUpload")
     val task4 = new checkClusterTask("Cluster Status","checkHadoop")
     val task5 = new runWordCountTask("Word Count Example","runWordCount")
-    val task6 = new showResultTask("Show result","showResult")
+    val task6 = new checkHadoopJobStatusTask("Job Status","checkJobStatus")
+    val task7 = new showResultTask("Show result","showResult")
+    val task8 = new startZeppelinTask("Lauch Zeppelin","startZeppelin")
+
     tasks.append(task1)
     //tasks.append(task2)
     //tasks.append(task3)
     tasks.append(task4)
     tasks.append(task5)
     tasks.append(task6)
+    tasks.append(task7)
+    tasks.append(task8)
+
   }
 
   /**
@@ -101,10 +107,13 @@ class WorkflowController @Inject() (configuration: play.api.Configuration) (cc: 
     feedback = task.run(body); 
         // check if the result of running the task
     task.taskType match {
-      case "fileUpload"   => {feedback.substring(0, 7) match {case "Success" => Ok(feedback); case _ => BadRequest(feedback)} }
-      case "checkHadoop"  => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
-      case "runWordCount" => {feedback match {case "Job finished" => Ok(feedback); case _ => BadRequest(feedback)} }
-      case "showResult"   => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
+      case "fileUpload"       => {feedback.substring(0, 7) match {case "Success" => Ok(feedback); case _ => BadRequest(feedback)} }
+      case "checkHadoop"      => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
+      //case "runWordCount" => {feedback match {case "Job finished" => Ok(feedback); case _ => BadRequest(feedback)} }
+      case "runWordCount"     => {Ok("Job submitted with process ID: "+feedback)}
+      case "showResult"       => {feedback.length match {case _ => Ok(feedback); case 0 => BadRequest(feedback)} }
+      case "checkJobStatus"   => {feedback match {case _ => Ok(feedback); case "No jobs" => Ok(feedback)} }
+      case "startZeppelin"    => {Ok(feedback)}
     }
 
 //    }

@@ -59,6 +59,7 @@ import Array._
     val command = "scontrol show reservation |grep " + resName
     
     val res_info = Process(Seq("bash","-c", command)).!!.split("\n")
+    //laptop
     //val res_info = Array("ReservationName=hadoop+Idols+2431 StartTime=2017-11-22T11:35:02 EndTime=2017-12-02T11:35:02 Duration=10-00:00:00")
     
     res_info    
@@ -69,6 +70,7 @@ import Array._
     val command_1 = "tmp=`sinfo -T|grep "+ resName + " |awk '{print $6}'` && scontrol show hostname $tmp"
     
     val nodelist = Process(Seq("bash","-c", command_1)).!!.split("\n")
+    //laptop
     //val nodelist = Array("c252-101","c252-102","c252-103", "c252-104")
     
     nodelist    
